@@ -39,7 +39,7 @@ const initialState = {
   page: 1,
   totalPages: 0,
   totalResults: 0,
-  loading: "test",
+  loading: false,
   error: null,
   useInfiniteScroll: false,
 };
@@ -48,7 +48,6 @@ const initialState = {
 const movieReducer = (state, action) => {
   switch (action.type) {
     case ActionTypes.SET_LOADING:
-      console.log("set loading", action.payload);
       return { ...state, loading: action.payload };
     
     case ActionTypes.SET_ERROR:
@@ -159,8 +158,6 @@ export const MovieProvider = ({ children }) => {
     dispatch({ type: ActionTypes.SET_LOADING, payload: true });
     dispatch({ type: ActionTypes.SET_ERROR, payload: null });
 
-    console.log("discover", filters, page, append, initialState.loading);
-    
     try {
       const data = await discoverMovies(filters, page);
       if (append) {
